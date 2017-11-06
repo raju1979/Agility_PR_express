@@ -1,0 +1,53 @@
+[{
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "password": "kbegpjvr",
+    "age": 38,
+    "name": "Lenore Matthews",
+    "gender": "female",
+    "company": "SCENTRIC",
+    "email": "lenorematthews@scentric.com",
+    "phone": "+1 (938) 428-2156",
+    "address": "858 Union Avenue, Guilford, Mississippi, 8020",
+    "latitude": -54.53291,
+    "longitude": -11.298834
+}, {
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "password": "uta6q2dq",
+    "age": 38,
+    "name": "Francis Shaffer",
+    "gender": "female",
+    "company": "EXOTERIC",
+    "email": "francisshaffer@exoteric.com",
+    "phone": "+1 (890) 464-2377",
+    "address": "518 Balfour Place, Fontanelle, Arkansas, 1713",
+    "latitude": 57.977217,
+    "longitude": 103.309652
+}, {
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "password": "62vlc34k",
+    "age": 36,
+    "name": "Sosa Clay",
+    "gender": "male",
+    "company": "ZAJ",
+    "email": "sosaclay@zaj.com",
+    "phone": "+1 (907) 405-3559",
+    "address": "558 Madison Street, Rockhill, Iowa, 9213",
+    "latitude": 58.919258,
+    "longitude": -98.934661
+}, {
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "password": "aldhc8rs",
+    "age": 37,
+    "name": "Bray Wheeler",
+    "gender": "male",
+    "company": "VORATAK",
+    "email": "braywheeler@voratak.com",
+    "phone": "+1 (867) 513-2284",
+    "address": "635 Hubbard Place, Ilchester, Indiana, 8981",
+    "latitude": 59.998152,
+    "longitude": 130.066712
+}]
