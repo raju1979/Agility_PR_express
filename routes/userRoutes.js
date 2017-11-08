@@ -63,7 +63,8 @@ router.post("/Authenticate",(req,res) => {
                 console.log("not matched")
 			}else{
 				const payload = {
-					username:result.name
+                    username:result.name,
+					usermail:result.email
 				}
 
 				const token = jwt.sign(payload,process.env.JWT_SECRET,{
