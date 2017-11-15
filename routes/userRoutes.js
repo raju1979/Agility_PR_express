@@ -3,14 +3,25 @@ const router = express.Router();
 
 const mongoose = require("mongoose");
 const User = require("../models/m_user");
+const Outlet = require("../models/m_outlet");
 
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 const checkJwt = require('express-jwt')
 
-
 const users = require("../data/tempUser");
+
+router.use(
+    checkJwt({secret:process.env.JWT_SECRET}).unless({path:['/api/ContactManager/Authenticate']})
+);
+
+router.use((err,req,res,next) => {
+    if(err.name == 'UnauthorizedError'){
+        res.status(401).send({error:err.message})
+    }
+})
+
 
 router.get("/", (req, res) => {
     res.json({ "message": "Welcome to user route" })
@@ -78,6 +89,23 @@ router.post("/Authenticate",(req,res) => {
 	})
 
 })
+
+//QuickSearch route
+router.post("/QuickSearch",(req,res) => {
+    const searchDataRaw = req.body;
+    const name = searchDataRaw.QuickSearchRequest.Name;
+    
+    var regex = new RegExp(name, "i")
+    ,   query = { OutletName: regex };
+    
+    let outletPromise = Outlet.find(query).limit(5).exec();
+    console.log(name)
+    
+    outletPromise.then((result) => {
+        res.json(result);
+    })
+    
+});//end QuickSearch
 
 
 module.exports = router;
