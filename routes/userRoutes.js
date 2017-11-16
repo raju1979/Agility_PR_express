@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/m_user");
 const Outlet = require("../models/m_outlet");
+const Contact = require("../models/m_contacts");
 
 const bcrypt = require('bcrypt');
 
@@ -95,17 +96,67 @@ router.post("/QuickSearch",(req,res) => {
     const searchDataRaw = req.body;
     const name = searchDataRaw.QuickSearchRequest.Name;
     
-    var regex = new RegExp(name, "i")
-    ,   query = { OutletName: regex };
+    let outletResult = {
+        "QuickSearchResponse":{
+            "Username":"Rajesh"
+        }   
+    };
     
-    let outletPromise = Outlet.find(query).limit(5).exec();
+    var regex = new RegExp(name, "i")
+    ,   queryOutlet = { OutletName: regex }
+    ,   queryContact = {Username: regex}
+    
+    
+    let outletPromise = Outlet.find(queryOutlet,{OutletName:1,ProfileImageUrl:1}).exec();
     console.log(name)
     
     outletPromise.then((result) => {
-        res.json(result);
+        if(result){
+            outletResult.Outlets = result;
+        }else{
+            outletResult.Outlets = [];
+        }
+//        res.json(outletResult);
+        return Contact.aggregate(
+            [
+                { $match: { Username: regex } },
+                {
+                $project:{
+                        Username:1,
+                        ApiID:"$ContactDetail.ApiID",
+                        Name:"$ContactDetail.ContactName",                       ProfileImageUrl:"$ContactDetail.ProfileImageUrl",
+                        OutletName:"$ContactDetail.OutletName"
+
+                    }
+                }
+            ]
+        ).exec()
     })
-    
+    .then((contacts) => {
+        console.log(contacts)
+        if(contacts){
+            contacts.forEach((item) => {
+                
+            })
+            outletResult.Contacts = contacts
+        }else{
+            outletResult.Contacts = []
+        }
+        
+        
+        res.json(outletResult);
+    })
 });//end QuickSearch
+
+//temp route to test user model
+router.post("/alluses",(req,res) => {
+    let userPromise = Contact.find(queryContact).exec();
+    userPromise.then((users) => {
+        if(users){
+            res.json(users);
+        }
+    })
+});//
 
 
 module.exports = router;

@@ -78,6 +78,15 @@ const outletSchema = mongoose.Schema({
     }
 })
 
+outletSchema.virtual('ApiId').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+outletSchema.set('toJSON', {
+    virtuals: true
+});
+
 //outletSchema.index({"OutletType":"text"})
 
 const Outlet = mongoose.model("Outlets",outletSchema);
