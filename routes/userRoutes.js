@@ -143,8 +143,28 @@ router.post("/QuickSearch",(req,res) => {
             outletResult.Contacts = []
         }
         
+        console.log(`total records : ${outletResult.Contacts.length + outletResult.Outlets.length}`)
         
-        res.json(outletResult);
+        let totalRecordsReceived = outletResult.Contacts.length + outletResult.Outlets.length;
+        
+//        if(outletResult.Contacts.length == 0 && outletResult.Outlets.length == 0){
+//            res.status(205).send({"Message":"No matching records found"})
+//        }if(outletResult.Contacts.length + outletResult.Outlets.length >){
+//            res.status(205).send({"Message":"No matching records found"})
+//        }else if(outletResult.Contacts.length > 0  || outletResult.Outlets.length > 0){
+//            res.status(200).json(outletResult);
+//        }else{
+//            res.send('outletResult')
+//        }
+        
+        if(totalRecordsReceived == 0){
+            res.status(204).send({"Message":"No matching records found"})
+        }else if(totalRecordsReceived >= 3000){
+            res.status(500).send({"Message":"Search term too broad. Please refine your search."})
+        }else{
+            res.status(200).json(outletResult);
+        }
+        
     })
 });//end QuickSearch
 
